@@ -1,14 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import * as firebase from 'firebase';
-import FirebaseAuth from 'react-firebaseui';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import config from './config/FirebaseConfig';
+import config from '../config/FirebaseConfig';
 
-class SignInScreen extends Component {
+firebase.initializeApp(config);
+
+const uiConfig = {
+	signInFlow: 'popup',
+	signInSuccessUrl: 'signedIn',
+	signInOptions: [
+	  firebase.auth.EmailAuthProvider.PROVIDER_ID
+	]
+}
+
+class SignInScreen extends React.Component {
 	render() {
 		return (
 			<div>
-				<firebaseui />
+				<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
 			</div>
 		);
 	}
